@@ -3,8 +3,19 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { ArrowRight, Users, Building2, Code2 } from 'lucide-react';
+import { EHB_LINKS } from '@/lib/links';
 
-const CTA_CARDS = [
+const CTA_CARDS: ReadonlyArray<{
+  icon: typeof Users;
+  iconBg: string;
+  iconColor: string;
+  title: string;
+  description: string;
+  cta: string;
+  features: string[];
+  featured: boolean;
+  href?: string;
+}> = [
   {
     icon: Users,
     iconBg: 'bg-cyan-100',
@@ -14,6 +25,7 @@ const CTA_CARDS = [
     cta: 'Join EHB',
     features: ['Verified sellers & providers', 'SQ-scored listings', 'Cross-platform profile', 'Transparent trust scores'],
     featured: false,
+    href: EHB_LINKS.mainRegister,
   },
   {
     icon: Building2,
@@ -24,6 +36,7 @@ const CTA_CARDS = [
     cta: 'List Your Business',
     features: ['PSS verification', 'SQ Level badge', 'Multi-platform reach', 'Franchise support'],
     featured: true,
+    href: EHB_LINKS.mainRegister,
   },
   {
     icon: Code2,
@@ -34,6 +47,7 @@ const CTA_CARDS = [
     cta: 'View API Docs',
     features: ['PSS REST API', 'SQ webhook events', 'Sandbox environment', 'pss-client SDK'],
     featured: false,
+    // href intentionally omitted — API docs are wired up later.
   },
 ];
 
@@ -116,18 +130,34 @@ export default function CTASection() {
                     ))}
                   </ul>
 
-                  <motion.button
-                    className={`group flex items-center justify-center gap-2 w-full py-2.5 rounded-xl font-semibold text-sm transition-all ${
-                      card.featured
-                        ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-md shadow-blue-200 hover:shadow-blue-300'
-                        : 'border border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50'
-                    }`}
-                    whileHover={{ scale: 1.01 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    {card.cta}
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                  </motion.button>
+                  {card.href ? (
+                    <motion.a
+                      href={card.href}
+                      className={`group flex items-center justify-center gap-2 w-full py-2.5 rounded-xl font-semibold text-sm transition-all ${
+                        card.featured
+                          ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-md shadow-blue-200 hover:shadow-blue-300'
+                          : 'border border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50'
+                      }`}
+                      whileHover={{ scale: 1.01 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      {card.cta}
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                    </motion.a>
+                  ) : (
+                    <motion.button
+                      className={`group flex items-center justify-center gap-2 w-full py-2.5 rounded-xl font-semibold text-sm transition-all ${
+                        card.featured
+                          ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-md shadow-blue-200 hover:shadow-blue-300'
+                          : 'border border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50'
+                      }`}
+                      whileHover={{ scale: 1.01 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      {card.cta}
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                    </motion.button>
+                  )}
                 </motion.div>
               );
             })}

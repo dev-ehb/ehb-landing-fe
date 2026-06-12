@@ -1,3 +1,5 @@
+import { EHB_LINKS } from '@/lib/links';
+
 export type PlatformStatus = 'live' | 'beta' | 'coming-soon';
 
 export interface Platform {
@@ -11,6 +13,8 @@ export interface Platform {
   gradient: string;
   status: PlatformStatus;
   sqMax: number;
+  /** Live app URL — set only for platforms that are actually deployed. */
+  url?: string;
 }
 
 export const PLATFORMS: Platform[] = [
@@ -26,6 +30,7 @@ export const PLATFORMS: Platform[] = [
     gradient: 'from-cyan-500 to-blue-600',
     status: 'live',
     sqMax: 10,
+    url: EHB_LINKS.pss,
   },
   // ── Active Platforms ──
   {
@@ -39,6 +44,7 @@ export const PLATFORMS: Platform[] = [
     gradient: 'from-emerald-500 to-teal-600',
     status: 'live',
     sqMax: 10,
+    url: EHB_LINKS.gosellr,
   },
   {
     id: 'ols',
@@ -75,6 +81,7 @@ export const PLATFORMS: Platform[] = [
     gradient: 'from-blue-500 to-indigo-600',
     status: 'live',
     sqMax: 10,
+    url: EHB_LINKS.jps,
   },
   {
     id: 'wms',
