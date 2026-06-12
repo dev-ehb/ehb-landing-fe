@@ -4,6 +4,7 @@ import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { PLATFORMS, type Platform } from '@/lib/platforms';
 import GlowCard from './ui/GlowCard';
+import { ArrowUpRight } from 'lucide-react';
 
 const STATUS_CONFIG = {
   live: { label: 'Live', dot: 'bg-emerald-500', text: 'text-emerald-700', bg: 'bg-emerald-50 border-emerald-200' },
@@ -15,7 +16,7 @@ const FILTER_OPTIONS = ['All', 'Live', 'Beta', 'Coming Soon'];
 
 function PlatformCard({ platform }: { platform: Platform }) {
   const status = STATUS_CONFIG[platform.status];
-  return (
+  const card = (
     <GlowCard glowColor={`${platform.color}10`} className="p-5 h-full shadow-sm">
       <div className="flex items-start justify-between mb-4">
         <div
@@ -32,12 +33,34 @@ function PlatformCard({ platform }: { platform: Platform }) {
       <h3 className="font-display text-sm font-bold text-slate-900 mb-0.5">{platform.name}</h3>
       <p className="text-xs font-semibold mb-3" style={{ color: platform.color }}>{platform.industry}</p>
       <p className="text-xs text-slate-500 leading-relaxed mb-4">{platform.description}</p>
-      <div className="flex items-center gap-1.5 text-xs text-slate-400">
-        <span style={{ color: platform.color }}>⚡</span>
-        <span>PSS Verified · SQ1–SQ{platform.sqMax}</span>
+      <div className="flex items-center justify-between gap-1.5 text-xs text-slate-400">
+        <span className="flex items-center gap-1.5">
+          <span style={{ color: platform.color }}>⚡</span>
+          <span>PSS Verified · SQ1–SQ{platform.sqMax}</span>
+        </span>
+        {platform.url && (
+          <span className="inline-flex items-center gap-0.5 font-semibold text-slate-500 group-hover:text-slate-700 transition-colors">
+            Open <ArrowUpRight className="w-3 h-3" />
+          </span>
+        )}
       </div>
     </GlowCard>
   );
+
+  if (platform.url) {
+    return (
+      <a
+        href={platform.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group block h-full"
+        aria-label={`Open ${platform.name}`}
+      >
+        {card}
+      </a>
+    );
+  }
+  return card;
 }
 
 export default function PlatformGrid() {

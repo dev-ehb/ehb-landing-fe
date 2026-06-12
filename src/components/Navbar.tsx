@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Zap, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
+import { EHB_LINKS } from '@/lib/links';
 
 const NAV_LINKS = [
   { label: 'Platforms', href: '#platforms', hasDropdown: true },
@@ -44,17 +45,14 @@ export default function Navbar() {
 
             {/* Logo */}
             <motion.a
-              href="#"
+              href="/"
               className="flex items-center gap-2.5 group"
+              aria-label="EHB home"
               whileHover={{ scale: 1.02 }}
               transition={{ type: 'spring', stiffness: 500 }}
             >
-              <div className="relative flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 shadow-md shadow-blue-500/20">
-                <Zap className="h-4 w-4 text-white fill-white" />
-              </div>
-              <span className="font-display text-xl font-bold tracking-tight text-slate-900">
-                EHB
-              </span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logo-ehb-full.svg" alt="EHB — Education Health Business" className="h-8 w-auto" />
             </motion.a>
 
             {/* Desktop Nav */}
@@ -78,7 +76,7 @@ export default function Navbar() {
             {/* Desktop CTAs */}
             <div className="hidden md:flex items-center gap-2">
               <motion.a
-                href="#"
+                href={EHB_LINKS.mainLogin}
                 className="px-4 py-2 text-sm text-slate-600 hover:text-slate-900 font-medium transition-colors rounded-lg hover:bg-slate-100/80"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -86,7 +84,7 @@ export default function Navbar() {
                 Log in
               </motion.a>
               <motion.a
-                href="#cta"
+                href={EHB_LINKS.mainRegister}
                 className="px-5 py-2 text-sm font-semibold text-white rounded-full bg-blue-600 hover:bg-blue-700 shadow-md shadow-blue-500/20 hover:shadow-blue-500/30 transition-all"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
@@ -132,10 +130,10 @@ export default function Navbar() {
                 </motion.button>
               ))}
               <div className="mt-4 pt-4 border-t border-slate-100 flex flex-col gap-2">
-                <a href="#" className="px-4 py-2.5 text-center text-slate-600 text-sm font-medium rounded-xl hover:bg-slate-50 transition-all">
+                <a href={EHB_LINKS.mainLogin} onClick={() => setMobileOpen(false)} className="px-4 py-2.5 text-center text-slate-600 text-sm font-medium rounded-xl hover:bg-slate-50 transition-all">
                   Log in
                 </a>
-                <a href="#cta" onClick={() => setMobileOpen(false)}
+                <a href={EHB_LINKS.mainRegister} onClick={() => setMobileOpen(false)}
                   className="px-4 py-2.5 text-center text-sm font-semibold text-white rounded-full bg-blue-600 hover:bg-blue-700 transition-colors"
                 >
                   Get started
